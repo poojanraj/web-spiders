@@ -1,0 +1,42 @@
+usecase 8: A
+
+
+1)employee wise
+
+ SELECT
+    emp_id,
+COUNT(mom_ID) as "no of meetings",
+     SUM(CASE WHEN attendence = 1 THEN 1 ELSE 0 END) as present,
+     SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END) as absent,
+       SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END)*100.0/COUNT(EMP_ID) AS "PER"
+       FROM participants
+       GROUP BY emp_id
+order by emp_id;
+
+
+2) department wise
+
+-
+
+
+usecase 8: B
+
+1)employee_wise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
