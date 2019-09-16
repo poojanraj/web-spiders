@@ -1,0 +1,76 @@
+create view attend as
+SELECT
+  emp_id,
+  COUNT(EMP_ID) as total,
+  SUM(CASE WHEN attendence = 1 THEN 1 ELSE 0 END) as present,
+  SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END) as absent,
+  SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END)*100.0/COUNT(EMP_ID) AS "PERCENTAGE OF ABSENTEEISM"
+  FROM participants
+where emp_id>0;
+
+
+select e.emp_id,m.mom_creatorid,p.emp_id, COUNT(EMP_ID) as total,
+  SUM(CASE WHEN attendence = 1 THEN 1 ELSE 0 END) as present,
+  SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END) as absent,
+  SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END)*100.0/COUNT(EMP_ID) AS "PERCENTAGE OF ABSENTEEISM"
+from employees e join mom m on e.emp_id=m.mom_creatorid join participants p on p.emp_id=m.mom_creatorid;  
+
+
+
+
+create or replace procedure absent (
+emp_id) as 
+begin 
+SELECT
+  COUNT(EMP_ID) as total,
+  SUM(CASE WHEN attendence = 1 THEN 1 ELSE 0 END) as present,
+  SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END) as absent,
+  SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END)*100.0/COUNT(EMP_ID) AS "PERCENTAGE OF ABSENTEEISM"
+  FROM participants
+group by emp_id
+end;
+
+
+SELECT (SELECT e.emp_id,
+               m.mom_creatorid,
+               
+        FROM   employees e join mom m
+        on e.emp_id=m.mom_creatorid) AS momt
+union
+       SELECT name,
+               games,
+               goals
+        FROM   tblBarcelona
+        WHERE  name = 'messi')   AS table_b
+ORDER  BY goals 
+
+
+SELECT emp_id
+             CASE
+                  WHEN attendence = 1 or attendence = 0
+                     THEN 1
+                  ELSE 0
+             END ) as present,  *
+FROM participants
+group by emp_id;
+
+SELECT emp_id(attendence = 1 or attendence = 0, 1, 0) as attendance, * FROM participants;
+
+SELECT emp_id CASE
+            WHEN attendence = 1 or attendence = 0
+               THEN 1
+               ELSE 0
+       END as attend
+FROM Participants;
+
+
+
+
+SQL>  SELECT
+  2    emp_id,
+  3    COUNT(EMP_ID),
+  4    SUM(CASE WHEN attendence = 1 THEN 1 ELSE 0 END) as present,
+  5    SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END) as absent,
+  6    SUM(CASE WHEN attendence = 0 THEN 1 ELSE 0 END)*100.0/COUNT(EMP_ID) AS "PERCENTAGE OF ABSENTEEISM"
+  7    FROM participants
+  8    GROUP BY emp_id;
